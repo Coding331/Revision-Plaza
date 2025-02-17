@@ -91,6 +91,36 @@
             margin-top: auto;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .tools {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .tool-button {
+            padding: 5px 15px;
+            background-color: #2d6e7f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .tool-button.active {
+            background-color: #4CAF50;
+        }
+        
+        #canvas {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            display: none;
+        }
+        
+        .color-picker {
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -105,7 +135,15 @@
     </nav>
     <div class="container">
         <h2>Your Notes</h2>
+        <div class="tools">
+            <button class="tool-button active" onclick="switchMode('text')">Text Mode</button>
+            <button class="tool-button" onclick="switchMode('draw')">Draw Mode</button>
+            <button class="tool-button" onclick="setTool('pen')">Pen</button>
+            <button class="tool-button" onclick="setTool('eraser')">Eraser</button>
+            <input type="color" class="color-picker" onchange="setColor(this.value)" value="#000000">
+        </div>
         <textarea id="notes" placeholder="Write your notes here..."></textarea>
+        <canvas id="canvas" width="800" height="300"></canvas>
         <div class="button-container">
             <button class="button" onclick="saveNotes()">Save Notes</button>
             <button class="button" onclick="clearNotes()">Clear Notes</button>
@@ -116,20 +154,105 @@
     </footer>
 
     <script>
+        let isDrawing = false;
+        let currentTool = 'pen';
+        let currentColor = '#000000';
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const textarea = document.getElementById('notes');
+
         // Load saved notes from local storage
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("notes").value = localStorage.getItem("userNotes") || "";
+            const savedText = localStorage.getItem("userNotes") || "";
+            const savedDrawing = localStorage.getItem("userDrawing");
+            
+            textarea.value = savedText;
+            
+            if (savedDrawing) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                }
+                img.src = savedDrawing;
+            }
         });
 
+        function switchMode(mode) {
+            const buttons = document.querySelectorAll('.tool-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (mode === 'text') {
+                textarea.style.display = 'block';
+                canvas.style.display = 'none';
+                document.querySelector('button[onclick="switchMode(\'text\')"]').classList.add('active');
+            } else {
+                textarea.style.display = 'none';
+                canvas.style.display = 'block';
+                document.querySelector('button[onclick="switchMode(\'draw\')"]').classList.add('active');
+            }
+        }
+
+        function setTool(tool) {
+            currentTool = tool;
+            const buttons = document.querySelectorAll('.tool-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`button[onclick="setTool('${tool}')"]`).classList.add('active');
+        }
+
+        function setColor(color) {
+            currentColor = color;
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            
+            if (currentTool === 'eraser') {
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 20;
+            } else {
+                ctx.strokeStyle = currentColor;
+            }
+            
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
         function saveNotes() {
-            localStorage.setItem("userNotes", document.getElementById("notes").value);
+            localStorage.setItem("userNotes", textarea.value);
+            localStorage.setItem("userDrawing", canvas.toDataURL());
             alert("Notes saved!");
         }
 
         function clearNotes() {
             if (confirm("Are you sure you want to clear your notes?")) {
-                document.getElementById("notes").value = "";
+                textarea.value = "";
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 localStorage.removeItem("userNotes");
+                localStorage.removeItem("userDrawing");
             }
         }
     </script>
