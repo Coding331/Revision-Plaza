@@ -141,6 +141,8 @@
         #canvas {
             background-color: white;
             display: none;
+            touch-action: none;
+            border: 1px solid #ccc;
         }
 
         .color-picker {
@@ -311,6 +313,12 @@
         let startX, startY;
         let autoSaveTimeout;
         const maxStackSize = 50; // Limit for undo/redo stack
+        let tempCanvas = document.createElement('canvas');
+        let tempCtx = tempCanvas.getContext('2d');
+        let currentX, currentY; // Store current mouse position
+        let animationFrameId = null;
+        let points = [];
+        let lastPoint = null;
 
         // DOM elements
         const canvas = document.getElementById('canvas');
@@ -343,6 +351,12 @@
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', stopDrawing);
             canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch and Pencil events
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', handleTouchEnd);
+            canvas.addEventListener('touchcancel', handleTouchEnd);
 
             // Window resize handler
             window.addEventListener('resize', function() {
@@ -387,28 +401,26 @@
             saveStatus.style.display = 'block';
             saveStatus.textContent = 'Changes saved!';
             
-            // Remove any existing timeout
             if (saveStatus.timeout) {
                 clearTimeout(saveStatus.timeout);
             }
             
-            // Set new timeout
             saveStatus.timeout = setTimeout(() => {
                 saveStatus.style.display = 'none';
             }, 2000);
         }
 
         function switchTab(index) {
-            if (currentTab === index) return; // Don't switch if clicking current tab
+            if (currentTab === index) return;
             
-            saveNotes(true); // Save current tab
+            saveNotes(true);
             currentTab = index;
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach((tab, i) => {
                 tab.classList.toggle('active', i === index);
             });
             loadNoteContent();
-            saveToUndoStack(); // Initialize undo stack for new tab
+            saveToUndoStack();
         }
 
         function loadNoteContent() {
@@ -440,7 +452,6 @@
                 canvas.style.display = 'none';
                 document.getElementById('textFormatTools').style.display = 'flex';
                 document.querySelector('button[onclick="switchMode(\'text\')"]').classList.add('active');
-                // Hide drawing tools
                 document.querySelectorAll('.tool-button:not([onclick^="switchMode"])').forEach(btn => 
                     btn.style.display = 'none'
                 );
@@ -449,10 +460,10 @@
                 canvas.style.display = 'block';
                 document.getElementById('textFormatTools').style.display = 'none';
                 document.querySelector('button[onclick="switchMode(\'draw\')"]').classList.add('active');
-                // Show drawing tools
                 document.querySelectorAll('.tool-button:not([onclick^="switchMode"])').forEach(btn => 
                     btn.style.display = 'inline-block'
                 );
+                setupCanvas();
             }
         }
 
@@ -462,7 +473,6 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             document.querySelector(`button[onclick="setTool('${tool}')"]`).classList.add('active');
             
-            // Reset drawing state
             ctx.beginPath();
             isDrawing = false;
         }
@@ -494,6 +504,294 @@
                     break;
             }
             saveToUndoStack();
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            startX = (e.clientX - rect.left) * scaleX;
+            startY = (e.clientY - rect.top) * scaleY;
+            currentX = startX;
+            currentY = startY;
+            
+            // Reset points array and last point
+            points = [];
+            lastPoint = null;
+            
+            if (currentTool === 'pen') {
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+            }
+            
+            saveToUndoStack();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            currentX = (e.clientX - rect.left) * scaleX;
+            currentY = (e.clientY - rect.top) * scaleY;
+            
+            // Get pressure from Apple Pencil if available
+            let pressure = e.pressure || e.force || 1;
+            
+            if (currentTool === 'pen' || currentTool === 'eraser') {
+                points.push({ 
+                    x: currentX, 
+                    y: currentY,
+                    pressure: pressure 
+                });
+                
+                if (points.length > 4) {
+                    points.shift();
+                }
+                
+                if (points.length > 1) {
+                    ctx.strokeStyle = currentTool === 'eraser' ? '#ffffff' : currentColor;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    
+                    // Apply pressure sensitivity to line width
+                    ctx.lineWidth = currentSize * pressure;
+                    
+                    // Start a new path
+                    ctx.beginPath();
+                    
+                    // Move to the first point
+                    if (lastPoint) {
+                        ctx.moveTo(lastPoint.x, lastPoint.y);
+                    } else {
+                        ctx.moveTo(points[0].x, points[0].y);
+                    }
+                    
+                    // If we have enough points, draw a smooth curve
+                    if (points.length > 2) {
+                        // Calculate control points
+                        const xc = (points[1].x + points[2].x) / 2;
+                        const yc = (points[1].y + points[2].y) / 2;
+                        
+                        // Draw curve using quadratic bezier
+                        ctx.quadraticCurveTo(points[1].x, points[1].y, xc, yc);
+                    } else {
+                        // Draw straight line if only 2 points
+                        ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+                    }
+                    
+                    ctx.stroke();
+                    
+                    // Store last point
+                    lastPoint = points[points.length - 1];
+                }
+            } else {
+                // For shapes, use requestAnimationFrame
+                if (!animationFrameId) {
+                    tempCanvas.width = canvas.width;
+                    tempCanvas.height = canvas.height;
+                    tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+                    tempCtx.drawImage(canvas, 0, 0);
+                    animationFrameId = requestAnimationFrame(drawShape);
+                }
+            }
+        }
+
+        function drawShape() {
+            // Clear main canvas and restore the initial state
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(tempCanvas, 0, 0);
+            
+            // Draw the current shape
+            ctx.beginPath();
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = currentSize;
+            ctx.lineCap = 'round';
+            
+            if (currentTool === 'rectangle') {
+                ctx.rect(startX, startY, currentX - startX, currentY - startY);
+            } else if (currentTool === 'circle') {
+                const radius = Math.sqrt(Math.pow(currentX - startX, 2) + Math.pow(currentY - startY, 2));
+                ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+            } else if (currentTool === 'line') {
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(currentX, currentY);
+            }
+            ctx.stroke();
+            
+            // Continue animation if still drawing
+            if (isDrawing) {
+                animationFrameId = requestAnimationFrame(drawShape);
+            } else {
+                animationFrameId = null;
+            }
+        }
+
+        function stopDrawing() {
+            if (!isDrawing) return;
+            isDrawing = false;
+            ctx.closePath();
+            
+            // Reset points array and last point
+            points = [];
+            lastPoint = null;
+            
+            // Cancel any pending animation frame
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            
+            // Save the current state
+            notes[currentTab].drawing = canvas.toDataURL();
+            saveNotes(true);
+        }
+
+        function loadDrawing(dataUrl, callback) {
+            if (!dataUrl) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (callback) callback();
+                return;
+            }
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+                if (callback) callback();
+            };
+            img.src = dataUrl;
+        }
+
+        function saveToUndoStack() {
+            undoStack.push({
+                text: textarea.value,
+                drawing: canvas.toDataURL()
+            });
+            
+            if (undoStack.length > maxStackSize) {
+                undoStack.shift();
+            }
+            redoStack = [];
+        }
+
+        function undoAction() {
+            if (undoStack.length === 0) return;
+            
+            redoStack.push({
+                text: textarea.value,
+                drawing: canvas.toDataURL()
+            });
+            
+            const previousState = undoStack.pop();
+            textarea.value = previousState.text;
+            loadDrawing(previousState.drawing);
+            
+            notes[currentTab].text = previousState.text;
+            notes[currentTab].drawing = previousState.drawing;
+            saveNotes(true);
+        }
+
+        function redoAction() {
+            if (redoStack.length === 0) return;
+            
+            undoStack.push({
+                text: textarea.value,
+                drawing: canvas.toDataURL()
+            });
+            
+            const nextState = redoStack.pop();
+            textarea.value = nextState.text;
+            loadDrawing(nextState.drawing);
+            
+            notes[currentTab].text = nextState.text;
+            notes[currentTab].drawing = nextState.drawing;
+            saveNotes(true);
+        }
+
+        function saveNotes(autosave = false) {
+            notes[currentTab].text = textarea.value;
+            notes[currentTab].drawing = canvas.toDataURL();
+            localStorage.setItem("allNotes", JSON.stringify(notes));
+            
+            if (!autosave) {
+                showSaveStatus();
+            }
+        }
+
+        function clearNotes() {
+            if (confirm('Are you sure you want to clear the current note?')) {
+                saveToUndoStack();
+                textarea.value = '';
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                notes[currentTab] = { text: '', drawing: null };
+                saveNotes();
+            }
+        }
+
+        function showDownloadOptions() {
+            const options = document.getElementById('download-options');
+            options.classList.toggle('show');
+        }
+
+        function downloadAsPDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            
+            // Add text
+            pdf.text(notes[currentTab].text, 10, 10);
+            
+            // Add drawing if exists
+            if (notes[currentTab].drawing) {
+                pdf.addImage(notes[currentTab].drawing, 'PNG', 10, 100, 190, 100);
+            }
+            
+            pdf.save(`note${currentTab + 1}.pdf`);
+        }
+
+        function downloadAsImage() {
+            const link = document.createElement('a');
+            link.download = `note${currentTab + 1}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function downloadAsTXT() {
+            const link = document.createElement('a');
+            const file = new Blob([notes[currentTab].text], { type: 'text/plain' });
+            link.href = URL.createObjectURL(file);
+            link.download = `note${currentTab + 1}.txt`;
+            link.click();
+        }
+
+        // Add these new touch handling functions
+        function handleTouchStart(e) {
+            e.preventDefault(); // Prevent scrolling
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            startDrawing(mouseEvent);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault(); // Prevent scrolling
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            draw(mouseEvent);
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            stopDrawing();
         }
     </script>
 </body>
