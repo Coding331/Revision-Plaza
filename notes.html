@@ -13,28 +13,33 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             background-color: #f4f4f4;
         }
+
         header {
             background: #2d6e7f;
             color: white;
             padding: 30px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         header h1 {
             font-size: 2.5em;
         }
+
         nav {
             background: #1e4f5b;
             padding: 15px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         nav a {
             color: white;
             margin: 0 15px;
@@ -42,9 +47,11 @@
             font-size: 1.2em;
             transition: color 0.3s ease;
         }
+
         nav a:hover {
             color: #4CAF50;
         }
+
         .container {
             flex: 1;
             padding: 20px;
@@ -56,11 +63,14 @@
             border: 1px solid #ccc;
             position: relative;
         }
+
         h2 {
             margin-bottom: 20px;
             color: #2d6e7f;
         }
-        textarea, #canvas {
+
+        textarea,
+        #canvas {
             width: 100%;
             height: 300px;
             padding: 10px;
@@ -68,15 +78,18 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         textarea {
             resize: vertical;
         }
+
         .button-container {
             display: flex;
             justify-content: space-between;
             margin-top: 10px;
             gap: 10px;
         }
+
         .button {
             display: inline-block;
             background-color: #2d6e7f;
@@ -90,17 +103,20 @@
             transition: background-color 0.3s;
             border: none;
         }
+
         .button:hover {
             background-color: #1e4f5b;
         }
+
         footer {
             background: #333;
             color: white;
             text-align: center;
             padding: 20px;
             margin-top: auto;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .tools {
             margin-bottom: 15px;
             display: flex;
@@ -108,6 +124,7 @@
             align-items: center;
             flex-wrap: wrap;
         }
+
         .tool-button {
             padding: 5px 15px;
             background-color: #2d6e7f;
@@ -116,25 +133,31 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .tool-button.active {
             background-color: #4CAF50;
         }
+
         #canvas {
             background-color: white;
             display: none;
         }
+
         .color-picker {
             margin-left: 10px;
         }
+
         .tool-settings {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         .size-slider {
             width: 100px;
             margin: 0 10px;
         }
+
         .format-tools {
             margin-bottom: 10px;
             padding: 10px;
@@ -143,6 +166,7 @@
             display: flex;
             gap: 10px;
         }
+
         .format-button {
             padding: 5px 10px;
             background: #f0f0f0;
@@ -150,19 +174,23 @@
             border-radius: 3px;
             cursor: pointer;
         }
+
         .format-button:hover {
             background: #e0e0e0;
         }
+
         .format-button.active {
             background: #2d6e7f;
             color: white;
         }
+
         .tabs {
             display: flex;
             gap: 5px;
             margin-bottom: 10px;
             flex-wrap: wrap;
         }
+
         .tab {
             padding: 8px 15px;
             background: #f0f0f0;
@@ -170,10 +198,12 @@
             border-radius: 5px 5px 0 0;
             cursor: pointer;
         }
+
         .tab.active {
             background: #2d6e7f;
             color: white;
         }
+
         #download-options {
             position: absolute;
             background: white;
@@ -182,13 +212,15 @@
             padding: 10px;
             display: none;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
         #download-options.show {
             display: flex;
             flex-direction: column;
             gap: 5px;
         }
+
         .save-status {
             position: fixed;
             bottom: 20px;
@@ -198,18 +230,22 @@
             color: white;
             border-radius: 5px;
             display: none;
+            z-index: 1001;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Study Notes</h1>
     </header>
+
     <nav>
         <a href="index.html">Home</a>
         <a href="library.html">Study Guides</a>
         <a href="notes.html">Notes</a>
     </nav>
+
     <div class="container">
         <h2>Your Notes</h2>
         <div class="tabs">
@@ -217,6 +253,7 @@
             <div class="tab" onclick="switchTab(1)">Note 2</div>
             <button class="button" onclick="addNewTab()">+</button>
         </div>
+
         <div class="tools">
             <button class="tool-button active" onclick="switchMode('text')">Text Mode</button>
             <button class="tool-button" onclick="switchMode('draw')">Draw Mode</button>
@@ -228,15 +265,18 @@
             <div class="tool-settings">
                 <label>Size: <input type="range" min="1" max="50" value="2" class="size-slider" onchange="setSize(this.value)"></label>
             </div>
-            <input type="color" class="color-picker" onchange="setColor(this.value)" value="#000000">
+            <label>Color: <input type="color" class="color-picker" onchange="setColor(this.value)" value="#000000"></label>
         </div>
+
         <div class="format-tools" id="textFormatTools">
-            <button class="format-button" onclick="formatText('bold')">B</button>
+            <button class="format-button" onclick="formatText('bold')" title="Bold">B</button>
             <button class="format-button" onclick="formatText('italic')">I</button>
             <button class="format-button" onclick="formatText('bullet')">• List</button>
         </div>
+
         <textarea id="notes" placeholder="Write your notes here..."></textarea>
         <canvas id="canvas" width="800" height="300"></canvas>
+
         <div class="button-container">
             <button class="button" onclick="saveNotes()">Save Notes</button>
             <button class="button" onclick="clearNotes()">Clear Notes</button>
@@ -244,17 +284,22 @@
             <button class="button" onclick="undoAction()">Undo</button>
             <button class="button" onclick="redoAction()">Redo</button>
         </div>
+
         <div id="download-options">
             <button class="button" onclick="downloadAsPDF()">Download as PDF</button>
             <button class="button" onclick="downloadAsImage()">Download as Image</button>
+            <button class="button" onclick="downloadAsTXT()">Download as TXT</button>
         </div>
     </div>
+
     <div class="save-status" id="saveStatus">Changes saved!</div>
+
     <footer>
         <p>&copy; 2025 Study Hub. All rights reserved.</p>
     </footer>
 
     <script>
+        // Global variables
         let isDrawing = false;
         let currentTool = 'pen';
         let currentColor = '#000000';
@@ -265,7 +310,9 @@
         let redoStack = [];
         let startX, startY;
         let autoSaveTimeout;
+        const maxStackSize = 50; // Limit for undo/redo stack
 
+        // DOM elements
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const textarea = document.getElementById('notes');
@@ -275,8 +322,49 @@
         document.addEventListener("DOMContentLoaded", function() {
             loadFromLocalStorage();
             setupAutoSave();
+            setupEventListeners();
             saveToUndoStack();
         });
+
+        function setupEventListeners() {
+            // Add event listeners for content changes
+            textarea.addEventListener('input', () => {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(() => saveNotes(true), 2000);
+            });
+            
+            canvas.addEventListener('mouseup', () => {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(() => saveNotes(true), 2000);
+            });
+
+            // Canvas event listeners
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Window resize handler
+            window.addEventListener('resize', function() {
+                if (canvas.style.display !== 'none') {
+                    const tempCanvas = document.createElement('canvas');
+                    const tempCtx = tempCanvas.getContext('2d');
+                    tempCanvas.width = canvas.width;
+                    tempCanvas.height = canvas.height;
+                    tempCtx.drawImage(canvas, 0, 0);
+                    
+                    canvas.width = canvas.offsetWidth;
+                    canvas.height = canvas.offsetHeight;
+                    
+                    // Restore drawing settings
+                    ctx.lineWidth = currentSize;
+                    ctx.lineCap = 'round';
+                    ctx.strokeStyle = currentColor;
+                    
+                    ctx.drawImage(tempCanvas, 0, 0, canvas.width, canvas.height);
+                }
+            });
+        }
 
         function loadFromLocalStorage() {
             const savedNotes = localStorage.getItem("allNotes");
@@ -295,20 +383,32 @@
         }
 
         function showSaveStatus() {
+            const saveStatus = document.getElementById('saveStatus');
             saveStatus.style.display = 'block';
-            setTimeout(() => {
+            saveStatus.textContent = 'Changes saved!';
+            
+            // Remove any existing timeout
+            if (saveStatus.timeout) {
+                clearTimeout(saveStatus.timeout);
+            }
+            
+            // Set new timeout
+            saveStatus.timeout = setTimeout(() => {
                 saveStatus.style.display = 'none';
             }, 2000);
         }
 
         function switchTab(index) {
-            saveNotes(true);
+            if (currentTab === index) return; // Don't switch if clicking current tab
+            
+            saveNotes(true); // Save current tab
             currentTab = index;
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach((tab, i) => {
                 tab.classList.toggle('active', i === index);
             });
             loadNoteContent();
+            saveToUndoStack(); // Initialize undo stack for new tab
         }
 
         function loadNoteContent() {
@@ -328,6 +428,7 @@
             newTab.textContent = `Note ${notes.length}`;
             newTab.onclick = () => switchTab(notes.length - 1);
             tabsContainer.insertBefore(newTab, tabsContainer.lastElementChild);
+            switchTab(notes.length - 1);
         }
 
         function switchMode(mode) {
@@ -339,11 +440,19 @@
                 canvas.style.display = 'none';
                 document.getElementById('textFormatTools').style.display = 'flex';
                 document.querySelector('button[onclick="switchMode(\'text\')"]').classList.add('active');
+                // Hide drawing tools
+                document.querySelectorAll('.tool-button:not([onclick^="switchMode"])').forEach(btn => 
+                    btn.style.display = 'none'
+                );
             } else {
                 textarea.style.display = 'none';
                 canvas.style.display = 'block';
                 document.getElementById('textFormatTools').style.display = 'none';
                 document.querySelector('button[onclick="switchMode(\'draw\')"]').classList.add('active');
+                // Show drawing tools
+                document.querySelectorAll('.tool-button:not([onclick^="switchMode"])').forEach(btn => 
+                    btn.style.display = 'inline-block'
+                );
             }
         }
 
@@ -352,6 +461,10 @@
             const buttons = document.querySelectorAll('.tool-button');
             buttons.forEach(btn => btn.classList.remove('active'));
             document.querySelector(`button[onclick="setTool('${tool}')"]`).classList.add('active');
+            
+            // Reset drawing state
+            ctx.beginPath();
+            isDrawing = false;
         }
 
         function setColor(color) {
@@ -382,186 +495,6 @@
             }
             saveToUndoStack();
         }
-
-        function saveToUndoStack() {
-            undoStack.push({
-                text: textarea.value,
-                drawing: canvas.toDataURL()
-            });
-            redoStack = [];
-        }
-
-        function undoAction() {
-            if (undoStack.length > 0) {
-                redoStack.push({
-                    text: textarea.value,
-                    drawing: canvas.toDataURL()
-                });
-                const lastState = undoStack.pop();
-                textarea.value = lastState.text;
-                loadDrawing(lastState.drawing);
-            }
-        }
-
-        function redoAction() {
-            if (redoStack.length > 0) {
-                undoStack.push({
-                    text: textarea.value,
-                    drawing: canvas.toDataURL()
-                });
-                const nextState = redoStack.pop();
-                textarea.value = nextState.text;
-                loadDrawing(nextState.drawing);
-            }
-        }
-
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', stopDrawing);
-        canvas.addEventListener('mouseout', stopDrawing);
-
-        function startDrawing(e) {
-            isDrawing = true;
-            const rect = canvas.getBoundingClientRect();
-            startX = e.clientX - rect.left;
-            startY = e.clientY - rect.top;
-            draw(e);
-        }
-
-        function draw(e) {
-            if (!isDrawing) return;
-            
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            ctx.lineWidth = currentTool === 'eraser' ? currentSize * 2 : currentSize;
-            ctx.lineCap = 'round';
-            
-            switch(currentTool) {
-                case 'eraser':
-                    ctx.strokeStyle = '#ffffff';
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
-                    break;
-                case 'pen':
-                    ctx.strokeStyle = currentColor;
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
-                    break;
-                case 'rectangle':
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    loadDrawing(undoStack[undoStack.length - 1]?.drawing);
-                    ctx.strokeStyle = currentColor;
-                    ctx.strokeRect(startX, startY, x - startX, y - startY);
-                    break;
-                case 'circle':
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    loadDrawing(undoStack[undoStack.length - 1]?.drawing);
-                    ctx.strokeStyle = currentColor;
-                    ctx.beginPath();
-                    const radius = Math.sqrt(Math.pow(x - startX, 2) + Math.pow(y - startY, 2));
-                    ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
-                    ctx.stroke();
-                    break;
-                case 'line':
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    loadDrawing(undoStack[undoStack.length - 1]?.drawing);
-                    ctx.strokeStyle = currentColor;
-                    ctx.beginPath();
-                    ctx.moveTo(startX, startY);
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
-                    break;
-            }
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        }
-
-        function stopDrawing() {
-            if (isDrawing) {
-                isDrawing = false;
-                ctx.beginPath();
-                saveToUndoStack();
-            }
-        }
-
-        function loadDrawing(dataUrl) {
-            if (!dataUrl) return;
-            const img = new Image();
-            img.onload = function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0);
-            }
-            img.src = dataUrl;
-        }
-
-        function saveNotes(isAutoSave = false) {
-            notes[currentTab] = {
-                text: textarea.value,
-                drawing: canvas.toDataURL()
-            };
-            localStorage.setItem("allNotes", JSON.stringify(notes));
-            if (!isAutoSave) {
-                showSaveStatus();
-            }
-        }
-
-        function clearNotes() {
-            if (confirm("Are you sure you want to clear your notes?")) {
-                textarea.value = "";
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                notes[currentTab] = { text: '', drawing: null };
-                localStorage.setItem("allNotes", JSON.stringify(notes));
-                saveToUndoStack();
-            }
-        }
-
-        function showDownloadOptions() {
-            const downloadOptions = document.getElementById('download-options');
-            downloadOptions.classList.toggle('show');
-        }
-
-        function downloadAsPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Add text
-            const text = textarea.value;
-            doc.text(text, 10, 10);
-            
-            // Add drawing
-            if (canvas.style.display !== 'none') {
-                const imgData = canvas.toDataURL('image/png');
-                doc.addImage(imgData, 'PNG', 10, 100, 190, 100);
-            }
-            
-            doc.save('notes.pdf');
-            document.getElementById('download-options').classList.remove('show');
-        }
-
-        function downloadAsImage() {
-            const link = document.createElement('a');
-            link.download = 'notes.png';
-            link.href = canvas.toDataURL();
-            link.click();
-            document.getElementById('download-options').classList.remove('show');
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            if (canvas.style.display !== 'none') {
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = canvas.width;
-                tempCanvas.height = canvas.height;
-                tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
-                
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-                
-                ctx.drawImage(tempCanvas, 0, 0);
-            }
-        });
     </script>
 </body>
 </html>
