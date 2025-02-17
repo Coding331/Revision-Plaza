@@ -121,6 +121,17 @@
         .color-picker {
             margin-left: 10px;
         }
+
+        .tool-settings {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .size-slider {
+            width: 100px;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -140,6 +151,9 @@
             <button class="tool-button" onclick="switchMode('draw')">Draw Mode</button>
             <button class="tool-button" onclick="setTool('pen')">Pen</button>
             <button class="tool-button" onclick="setTool('eraser')">Eraser</button>
+            <div class="tool-settings">
+                <label>Size: <input type="range" min="1" max="50" value="2" class="size-slider" onchange="setSize(this.value)"></label>
+            </div>
             <input type="color" class="color-picker" onchange="setColor(this.value)" value="#000000">
         </div>
         <textarea id="notes" placeholder="Write your notes here..."></textarea>
@@ -157,6 +171,7 @@
         let isDrawing = false;
         let currentTool = 'pen';
         let currentColor = '#000000';
+        let currentSize = 2;
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const textarea = document.getElementById('notes');
@@ -203,6 +218,10 @@
             currentColor = color;
         }
 
+        function setSize(size) {
+            currentSize = parseInt(size);
+        }
+
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
@@ -220,12 +239,11 @@
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            ctx.lineWidth = 2;
+            ctx.lineWidth = currentTool === 'eraser' ? currentSize * 2 : currentSize;
             ctx.lineCap = 'round';
             
             if (currentTool === 'eraser') {
                 ctx.strokeStyle = '#ffffff';
-                ctx.lineWidth = 20;
             } else {
                 ctx.strokeStyle = currentColor;
             }
