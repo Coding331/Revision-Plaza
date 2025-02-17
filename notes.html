@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes - Study Hub</title>
+    <!-- Add jsPDF library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -52,6 +54,7 @@
             resize: horizontal;
             overflow: auto;
             border: 1px solid #ccc;
+            position: relative;
         }
         h2 {
             margin-bottom: 20px;
@@ -72,6 +75,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 10px;
+            gap: 10px;
         }
         .button {
             display: inline-block;
@@ -102,8 +106,8 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
-        
         .tool-button {
             padding: 5px 15px;
             background-color: #2d6e7f;
@@ -112,29 +116,88 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        
         .tool-button.active {
             background-color: #4CAF50;
         }
-        
         #canvas {
             background-color: white;
             display: none;
         }
-        
         .color-picker {
             margin-left: 10px;
         }
-
         .tool-settings {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
         .size-slider {
             width: 100px;
             margin: 0 10px;
+        }
+        .format-tools {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            display: flex;
+            gap: 10px;
+        }
+        .format-button {
+            padding: 5px 10px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .format-button:hover {
+            background: #e0e0e0;
+        }
+        .format-button.active {
+            background: #2d6e7f;
+            color: white;
+        }
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+        }
+        .tab.active {
+            background: #2d6e7f;
+            color: white;
+        }
+        #download-options {
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #download-options.show {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .save-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px;
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+            border-radius: 5px;
+            display: none;
         }
     </style>
 </head>
@@ -149,23 +212,44 @@
     </nav>
     <div class="container">
         <h2>Your Notes</h2>
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab(0)">Note 1</div>
+            <div class="tab" onclick="switchTab(1)">Note 2</div>
+            <button class="button" onclick="addNewTab()">+</button>
+        </div>
         <div class="tools">
             <button class="tool-button active" onclick="switchMode('text')">Text Mode</button>
             <button class="tool-button" onclick="switchMode('draw')">Draw Mode</button>
             <button class="tool-button" onclick="setTool('pen')">Pen</button>
             <button class="tool-button" onclick="setTool('eraser')">Eraser</button>
+            <button class="tool-button" onclick="setTool('rectangle')">Rectangle</button>
+            <button class="tool-button" onclick="setTool('circle')">Circle</button>
+            <button class="tool-button" onclick="setTool('line')">Line</button>
             <div class="tool-settings">
                 <label>Size: <input type="range" min="1" max="50" value="2" class="size-slider" onchange="setSize(this.value)"></label>
             </div>
             <input type="color" class="color-picker" onchange="setColor(this.value)" value="#000000">
+        </div>
+        <div class="format-tools" id="textFormatTools">
+            <button class="format-button" onclick="formatText('bold')">B</button>
+            <button class="format-button" onclick="formatText('italic')">I</button>
+            <button class="format-button" onclick="formatText('bullet')">• List</button>
         </div>
         <textarea id="notes" placeholder="Write your notes here..."></textarea>
         <canvas id="canvas" width="800" height="300"></canvas>
         <div class="button-container">
             <button class="button" onclick="saveNotes()">Save Notes</button>
             <button class="button" onclick="clearNotes()">Clear Notes</button>
+            <button class="button" onclick="showDownloadOptions()">Download</button>
+            <button class="button" onclick="undoAction()">Undo</button>
+            <button class="button" onclick="redoAction()">Redo</button>
+        </div>
+        <div id="download-options">
+            <button class="button" onclick="downloadAsPDF()">Download as PDF</button>
+            <button class="button" onclick="downloadAsImage()">Download as Image</button>
         </div>
     </div>
+    <div class="save-status" id="saveStatus">Changes saved!</div>
     <footer>
         <p>&copy; 2025 Study Hub. All rights reserved.</p>
     </footer>
@@ -175,25 +259,76 @@
         let currentTool = 'pen';
         let currentColor = '#000000';
         let currentSize = 2;
+        let notes = [{ text: '', drawing: null }, { text: '', drawing: null }];
+        let currentTab = 0;
+        let undoStack = [];
+        let redoStack = [];
+        let startX, startY;
+        let autoSaveTimeout;
+
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const textarea = document.getElementById('notes');
+        const saveStatus = document.getElementById('saveStatus');
 
-        // Load saved notes from local storage
+        // Initialize
         document.addEventListener("DOMContentLoaded", function() {
-            const savedText = localStorage.getItem("userNotes") || "";
-            const savedDrawing = localStorage.getItem("userDrawing");
-            
-            textarea.value = savedText;
-            
-            if (savedDrawing) {
-                const img = new Image();
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0);
-                }
-                img.src = savedDrawing;
-            }
+            loadFromLocalStorage();
+            setupAutoSave();
+            saveToUndoStack();
         });
+
+        function loadFromLocalStorage() {
+            const savedNotes = localStorage.getItem("allNotes");
+            if (savedNotes) {
+                notes = JSON.parse(savedNotes);
+                loadNoteContent();
+            }
+        }
+
+        function setupAutoSave() {
+            clearTimeout(autoSaveTimeout);
+            autoSaveTimeout = setTimeout(() => {
+                saveNotes(true);
+                setupAutoSave();
+            }, 30000);
+        }
+
+        function showSaveStatus() {
+            saveStatus.style.display = 'block';
+            setTimeout(() => {
+                saveStatus.style.display = 'none';
+            }, 2000);
+        }
+
+        function switchTab(index) {
+            saveNotes(true);
+            currentTab = index;
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+            loadNoteContent();
+        }
+
+        function loadNoteContent() {
+            textarea.value = notes[currentTab].text || '';
+            if (notes[currentTab].drawing) {
+                loadDrawing(notes[currentTab].drawing);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function addNewTab() {
+            notes.push({ text: '', drawing: null });
+            const tabsContainer = document.querySelector('.tabs');
+            const newTab = document.createElement('div');
+            newTab.className = 'tab';
+            newTab.textContent = `Note ${notes.length}`;
+            newTab.onclick = () => switchTab(notes.length - 1);
+            tabsContainer.insertBefore(newTab, tabsContainer.lastElementChild);
+        }
 
         function switchMode(mode) {
             const buttons = document.querySelectorAll('.tool-button');
@@ -202,10 +337,12 @@
             if (mode === 'text') {
                 textarea.style.display = 'block';
                 canvas.style.display = 'none';
+                document.getElementById('textFormatTools').style.display = 'flex';
                 document.querySelector('button[onclick="switchMode(\'text\')"]').classList.add('active');
             } else {
                 textarea.style.display = 'none';
                 canvas.style.display = 'block';
+                document.getElementById('textFormatTools').style.display = 'none';
                 document.querySelector('button[onclick="switchMode(\'draw\')"]').classList.add('active');
             }
         }
@@ -225,6 +362,59 @@
             currentSize = parseInt(size);
         }
 
+        function formatText(style) {
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            
+            switch(style) {
+                case 'bold':
+                    textarea.value = text.slice(0, start) + '**' + text.slice(start, end) + '**' + text.slice(end);
+                    break;
+                case 'italic':
+                    textarea.value = text.slice(0, start) + '_' + text.slice(start, end) + '_' + text.slice(end);
+                    break;
+                case 'bullet':
+                    const lines = text.slice(start, end).split('\n');
+                    const bulletedLines = lines.map(line => '• ' + line).join('\n');
+                    textarea.value = text.slice(0, start) + bulletedLines + text.slice(end);
+                    break;
+            }
+            saveToUndoStack();
+        }
+
+        function saveToUndoStack() {
+            undoStack.push({
+                text: textarea.value,
+                drawing: canvas.toDataURL()
+            });
+            redoStack = [];
+        }
+
+        function undoAction() {
+            if (undoStack.length > 0) {
+                redoStack.push({
+                    text: textarea.value,
+                    drawing: canvas.toDataURL()
+                });
+                const lastState = undoStack.pop();
+                textarea.value = lastState.text;
+                loadDrawing(lastState.drawing);
+            }
+        }
+
+        function redoAction() {
+            if (redoStack.length > 0) {
+                undoStack.push({
+                    text: textarea.value,
+                    drawing: canvas.toDataURL()
+                });
+                const nextState = redoStack.pop();
+                textarea.value = nextState.text;
+                loadDrawing(nextState.drawing);
+            }
+        }
+
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
@@ -232,6 +422,9 @@
 
         function startDrawing(e) {
             isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            startX = e.clientX - rect.left;
+            startY = e.clientY - rect.top;
             draw(e);
         }
 
@@ -245,37 +438,130 @@
             ctx.lineWidth = currentTool === 'eraser' ? currentSize * 2 : currentSize;
             ctx.lineCap = 'round';
             
-            if (currentTool === 'eraser') {
-                ctx.strokeStyle = '#ffffff';
-            } else {
-                ctx.strokeStyle = currentColor;
+            switch(currentTool) {
+                case 'eraser':
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    break;
+                case 'pen':
+                    ctx.strokeStyle = currentColor;
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    break;
+                case 'rectangle':
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    loadDrawing(undoStack[undoStack.length - 1]?.drawing);
+                    ctx.strokeStyle = currentColor;
+                    ctx.strokeRect(startX, startY, x - startX, y - startY);
+                    break;
+                case 'circle':
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    loadDrawing(undoStack[undoStack.length - 1]?.drawing);
+                    ctx.strokeStyle = currentColor;
+                    ctx.beginPath();
+                    const radius = Math.sqrt(Math.pow(x - startX, 2) + Math.pow(y - startY, 2));
+                    ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    break;
+                case 'line':
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    loadDrawing(undoStack[undoStack.length - 1]?.drawing);
+                    ctx.strokeStyle = currentColor;
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    break;
             }
-            
-            ctx.lineTo(x, y);
-            ctx.stroke();
             ctx.beginPath();
             ctx.moveTo(x, y);
         }
 
         function stopDrawing() {
-            isDrawing = false;
-            ctx.beginPath();
+            if (isDrawing) {
+                isDrawing = false;
+                ctx.beginPath();
+                saveToUndoStack();
+            }
         }
 
-        function saveNotes() {
-            localStorage.setItem("userNotes", textarea.value);
-            localStorage.setItem("userDrawing", canvas.toDataURL());
-            alert("Notes saved!");
+        function loadDrawing(dataUrl) {
+            if (!dataUrl) return;
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+            }
+            img.src = dataUrl;
+        }
+
+        function saveNotes(isAutoSave = false) {
+            notes[currentTab] = {
+                text: textarea.value,
+                drawing: canvas.toDataURL()
+            };
+            localStorage.setItem("allNotes", JSON.stringify(notes));
+            if (!isAutoSave) {
+                showSaveStatus();
+            }
         }
 
         function clearNotes() {
             if (confirm("Are you sure you want to clear your notes?")) {
                 textarea.value = "";
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                localStorage.removeItem("userNotes");
-                localStorage.removeItem("userDrawing");
+                notes[currentTab] = { text: '', drawing: null };
+                localStorage.setItem("allNotes", JSON.stringify(notes));
+                saveToUndoStack();
             }
         }
+
+        function showDownloadOptions() {
+            const downloadOptions = document.getElementById('download-options');
+            downloadOptions.classList.toggle('show');
+        }
+
+        function downloadAsPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add text
+            const text = textarea.value;
+            doc.text(text, 10, 10);
+            
+            // Add drawing
+            if (canvas.style.display !== 'none') {
+                const imgData = canvas.toDataURL('image/png');
+                doc.addImage(imgData, 'PNG', 10, 100, 190, 100);
+            }
+            
+            doc.save('notes.pdf');
+            document.getElementById('download-options').classList.remove('show');
+        }
+
+        function downloadAsImage() {
+            const link = document.createElement('a');
+            link.download = 'notes.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            document.getElementById('download-options').classList.remove('show');
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (canvas.style.display !== 'none') {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
+                
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                
+                ctx.drawImage(tempCanvas, 0, 0);
+            }
+        });
     </script>
 </body>
 </html>
