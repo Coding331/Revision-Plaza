@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynomials - Algebra Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f; /* Dark blue */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b; /* Darker blue */
+        }
+        nav {
+            background: #1e4f5b; /* Even darker blue */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f; /* Dark blue */
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b; /* Darker blue */
+            animation: fadeIn 1s ease-in-out;
+        }
+        p, ol, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b; /* Darker blue */
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #E3F2FD; /* Light blue background */
+            border: 1px solid #1e4f5b; /* Darker blue */
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b; /* Darker blue */
+            animation: bounce 1.5s infinite;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b; /* Darker blue */
+        }
+        .button {
+            display: inline-block;
+            background-color: #1e4f5b; /* Dark blue */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            text-align: center;
+            transition: background-color 0.3s;
+            margin: 20px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .button:hover {
+            background-color: #2d6e7f; /* Lighter blue */
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Polynomials</h1>
+    </header>
+    <nav>
+        <a href="algebra.html">Back to Algebra</a>
+        <a href="index.html">Back to Study Guide</a>
+    </nav>
+    <div class="container">
+        <h2>What is a Polynomial?</h2>
+        <p>A <strong>polynomial</strong> is an expression consisting of variables (also called indeterminates) raised to various powers, combined using addition, subtraction, and multiplication. The general form of a polynomial is:</p>
+        <pre>p(x) = aₙxⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀</pre>
+        <p>Where the <b>aₙ, aₙ₋₁, ..., a₀</b> are constants (called coefficients), and <b>x</b> is the variable. The exponent (n) is a non-negative integer.</p>
+
+        <h3>Operations with Polynomials:</h3>
+        <div class="step">
+            <i class="fas fa-plus"></i>
+            <div>
+                <h4>1. Addition</h4>
+                <p>To add polynomials, combine like terms (terms that have the same variable raised to the same power).</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-minus"></i>
+            <div>
+                <h4>2. Subtraction</h4>
+                <p>To subtract polynomials, distribute the negative sign and combine like terms.</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-times"></i>
+            <div>
+                <h4>3. Multiplication</h4>
+                <p>To multiply polynomials, use the distributive property (multiply each term in the first polynomial by each term in the second polynomial).</p>
+            </div>
+        </div>
+
+        <h3>Example 1: Polynomial Addition</h3>
+        <div class="example-box">
+            <p><strong>Add the polynomials <code>2x² + 3x + 4</code> and <code>x² - x + 1</code>:</strong></p>
+            <pre>
+            (2x² + 3x + 4) + (x² - x + 1) = (2x² + x²) + (3x - x) + (4 + 1)
+            = 3x² + 2x + 5
+            </pre>
+        </div>
+
+        <h3>Example 2: Polynomial Subtraction</h3>
+        <div class="example-box">
+            <p><strong>Subtract <code>(3x² + 4x - 2)</code> from <code>(5x² - 2x + 7)</code>:</strong></p>
+            <pre>
+            (5x² - 2x + 7) - (3x² + 4x - 2) = (5x² - 3x²) + (-2x - 4x) + (7 + 2)
+            = 2x² - 6x + 9
+            </pre>
+        </div>
+
+        <h3>Example 3: Polynomial Multiplication</h3>
+        <div class="example-box">
+            <p><strong>Multiply <code>(x + 2)</code> and <code>(x - 3)</code>:</strong></p>
+            <pre>
+            (x + 2)(x - 3) = x² - 3x + 2x - 6
+            = x² - x - 6
+            </pre>
+        </div>
+
+        <h3>Try Solving It Yourself:</h3>
+        <p>Now, try adding and subtracting these polynomials:</p>
+        <pre>2x³ + x² - 3x + 5 and x³ + 4x² - x - 1</pre>
+        <a href="#" class="button">Click here for the solution</a>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

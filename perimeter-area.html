@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perimeter and Area - Geometry Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f; /* Dark blue */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b; /* Darker blue */
+        }
+        nav {
+            background: #1e4f5b; /* Even darker blue */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f; /* Dark blue */
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b; /* Darker blue */
+            animation: fadeIn 1s ease-in-out;
+        }
+        p, ol, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b; /* Darker blue */
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #E3F2FD; /* Light blue background */
+            border: 1px solid #1e4f5b; /* Darker blue */
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b; /* Darker blue */
+            animation: bounce 1.5s infinite;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b; /* Darker blue */
+        }
+        .button {
+            display: inline-block;
+            background-color: #1e4f5b; /* Dark blue */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            text-align: center;
+            transition: background-color 0.3s;
+            margin: 20px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .button:hover {
+            background-color: #2d6e7f; /* Lighter blue */
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Perimeter and Area</h1>
+    </header>
+    <nav>
+        <a href="geometry.html">Back to Geometry</a>
+        <a href="index.html">Back to Study Guide</a>
+    </nav>
+        <div class="container">
+        <h2>Understanding Perimeter and Area</h2>
+
+        <h3>1. Perimeter of a Rectangle</h3>
+        <div class="step">
+            <i class="fas fa-ruler"></i>
+            <div>
+                <h4>Perimeter of a Rectangle</h4>
+                <p>The perimeter of a rectangle is the sum of all its sides. The formula is:</p>
+                <pre>P = 2 * (Length + Width)</pre>
+                <p>Example: For a rectangle with a length of 5 units and a width of 3 units:</p>
+                <pre>P = 2 * (5 + 3) = 2 * 8 = 16 units</pre>
+            </div>
+        </div>
+
+        <h3>2. Area of a Rectangle</h3>
+        <div class="step">
+            <i class="fas fa-ruler-combined"></i>
+            <div>
+                <h4>Area of a Rectangle</h4>
+                <p>The area of a rectangle is calculated by multiplying its length by its width. The formula is:</p>
+                <pre>A = Length * Width</pre>
+                <p>Example: For the same rectangle with a length of 5 units and a width of 3 units:</p>
+                <pre>A = 5 * 3 = 15 square units</pre>
+            </div>
+        </div>
+
+        <h3>3. Perimeter of a Circle</h3>
+        <div class="step">
+            <i class="fas fa-circle"></i>
+            <div>
+                <h4>Perimeter (Circumference) of a Circle</h4>
+                <p>The perimeter (or circumference) of a circle is calculated using the formula:</p>
+                <pre>C = 2 * π * Radius</pre>
+                <p>Example: For a circle with a radius of 4 units:</p>
+                <pre>C = 2 * π * 4 ≈ 25.12 units</pre>
+            </div>
+        </div>
+
+        <h3>4. Area of a Circle</h3>
+        <div class="step">
+            <i class="fas fa-circle-notch"></i>
+            <div>
+                <h4>Area of a Circle</h4>
+                <p>The area of a circle is calculated using the formula:</p>
+                <pre>A = π * Radius²</pre>
+                <p>Example: For the same circle with a radius of 4 units:</p>
+                <pre>A = π * 4² ≈ 50.24 square units</pre>
+            </div>
+        </div>
+
+        <h3>Example: Perimeter and Area of a Square</h3>
+        <div class="example-box">
+            <p><strong>Example: For a square with a side length of 6 units:</strong></p>
+            <p><strong>Perimeter:</strong></p>
+            <pre>P = 4 * side = 4 * 6 = 24 units</pre>
+            <p><strong>Area:</strong></p>
+            <pre>A = side² = 6² = 36 square units</pre>
+        </div>
+
+        <h3>Try Solving It Yourself:</h3>
+        <p>Now, try calculating the perimeter and area for the following shapes:</p>
+        <pre>Rectangle: Length = 8 units, Width = 5 units</pre>
+        <pre>Circle: Radius = 7 units</pre>
+        <a href="#" class="button">Click here for the solutions</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

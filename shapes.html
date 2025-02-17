@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes and Properties - Geometry Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b;
+        }
+        nav {
+            background: #1e4f5b;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b;
+            animation: fadeIn 1s ease-in-out;
+        }
+        p, ol, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #E3F2FD;
+            border: 1px solid #1e4f5b;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b;
+            animation: bounce 1.5s infinite;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Shapes and Properties</h1>
+    </header>
+    <nav>
+        <a href="geometry.html">Back to Geometry</a>
+        <a href="index.html">Back to Study Guide</a>
+    </nav>
+    <div class="container">
+        <h2>Types of Shapes and Their Properties</h2>
+
+        <div class="step">
+            <i class="fas fa-play"></i>
+            <div>
+                <h4>1. Triangle</h4>
+                <p>Polygons with three sides, classified as equilateral, isosceles, or scalene based on their side lengths and angles.</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-square"></i>
+            <div>
+                <h4>2. Square</h4>
+                <p>All sides equal, four right angles, and diagonals that bisect at 90°.</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-vector-square"></i>
+            <div>
+                <h4>3. Rectangle</h4>
+                <p>Opposite sides are equal, all angles are 90°, and diagonals are equal.</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-circle"></i>
+            <div>
+                <h4>4. Circle</h4>
+                <p>All points equidistant from the center; diameter is twice the radius.</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-paragraph"></i>
+            <div>
+                <h4>5. Parallelogram</h4>
+                <p>Opposite sides are parallel and equal; opposite angles are also equal.</p>
+            </div>
+        </div>
+        
+        <h3>Example:</h3>
+        <div class="example-box">
+            <p><strong>Example: Identify the properties of a square.</strong></p>
+            <pre>
+1. All four sides are equal.
+2. Each angle is 90°.
+3. Diagonals are equal and bisect each other at 90°.
+            </pre>
+        </div>
+
+        <h3>Try Identifying the Properties:</h3>
+        <p>Now, try identifying the properties of a rectangle and a triangle based on the descriptions above!</p>
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

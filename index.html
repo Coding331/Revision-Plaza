@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #2d6e7f; /* Dark blue */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+        }
+        nav {
+            background: #1e4f5b; /* Darker blue */
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #4CAF50; /* Greenish hover effect */
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 25%;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .sidebar h2 {
+            color: #2d6e7f;
+            margin-bottom: 15px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .content h2 {
+            color: #2d6e7f;
+            margin-bottom: 20px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Study Hub</h1>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="library.html">Library</a>
+        <a href="#">Notes</a>
+        <a href="#">Feedback</a>
+    </nav>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Resources</h2>
+            <p>Access your textbooks, study guides, and saved notes.</p>
+        </aside>
+        <main class="content">
+            <h2>Welcome to Study Hub</h2>
+            <p>Read textbooks, take notes, and enhance your learning experience with our interactive tools.</p>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

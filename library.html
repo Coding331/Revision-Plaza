@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guides - Study Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #2d6e7f; /* Dark blue */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
+        }
+        nav {
+            background: #1e4f5b; /* Darker blue */
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #4CAF50; /* Greenish hover effect */
+        }
+        .container {
+            flex: 1;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #2d6e7f; /* Dark blue */
+        }
+        .guide-list {
+            list-style: none;
+            padding: 0;
+        }
+        .guide-list li {
+            background: #ffffff;
+            margin: 10px 0;
+            padding: 15px;
+            border-left: 5px solid #2d6e7f; /* Dark blue */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .guide-list a {
+            text-decoration: none;
+            color: #2d6e7f; /* Dark blue */
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+        .guide-list a:hover {
+            color: #4CAF50; /* Greenish hover effect */
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Study Guides</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="library.html">Library</a>
+        <a href="notes.html">Notes</a>
+        <a href="feedback.html">Feedback</a>
+    </nav>
+    <div class="container">
+        <h2>Available Study Guides</h2>
+        <ul class="guide-list">
+            <li><a href="math.html">Mathematics Study Guide</a></li>
+            <li><a href="physics.html">Physics Study Guide</a></li>
+            <li><a href="history.html">History Study Guide</a></li>
+            <li><a href="economics.html">Economics Study Guide</a></li>
+            <li><a href="literature.html">Literature Study Guide</a></li>
+        </ul>
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

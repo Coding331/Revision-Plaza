@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry - Algebra Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f; /* Dark blue */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b; /* Darker blue */
+        }
+        nav {
+            background: #1e4f5b; /* Even darker blue */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f; /* Dark blue */
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .section-button {
+            display: inline-block;
+            background-color: #1e4f5b; /* Dark blue */
+            color: white;
+            padding: 20px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            text-align: center;
+            margin: 15px;
+            width: 100%;
+            transition: background-color 0.3s;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .section-button:hover {
+            background-color: #2d6e7f; /* Lighter blue */
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Geometry - Mathematics Study Guide</h1>
+    </header>
+    <nav>
+        <a href="math.html">Back to Mathematics</a>
+        <a href="library.html">Back to Study Guide</a>
+    </nav>
+    <div class="container">
+        <h2>Explore Geometry Concepts</h2>
+        <a href="shapes.html" class="section-button">Shapes and Properties</a>
+        <a href="angles.html" class="section-button">Angles and Their Types</a>
+        <a href="perimeter-area.html" class="section-button">Perimeter and Area</a>
+        <a href="volume.html" class="section-button">Volume and Surface Area</a>
+        <a href="coordinate-geometry.html" class="section-button">Coordinate Geometry</a>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

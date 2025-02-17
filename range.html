@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Range - Statistics Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b;
+        }
+        nav {
+            background: #1e4f5b;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #f4f4f9;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f;
+            text-align: center;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b;
+        }
+        p, ul, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            background: #E3F2FD;
+            border: 1px solid #1e4f5b;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        pre {
+            white-space: pre-wrap; /* Allow line wrapping */
+            word-wrap: break-word; /* Prevent overflow */
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Range - Statistics Study Guide</h1>
+    </header>
+    <nav>
+        <a href="index.html">Back to Study Guide</a>
+        <a href="statistics.html">Back to Statistics</a>
+    </nav>
+    <div class="container">
+        <h2>Understanding the Range</h2>
+        
+        <p>The **range** of a data set is the difference between the highest and lowest values. It is a measure of how spread out the values in a data set are.</p>
+
+        <div class="step">
+            <i class="fas fa-calculator"></i>
+            <div>
+                <h4>Steps to Find the Range</h4>
+                <p>To find the range, follow these steps:</p>
+                <pre>Step 1: Identify the highest and lowest values in the data set.
+Step 2: Subtract the lowest value from the highest value to find the range.</pre>
+            </div>
+        </div>
+
+        <h3>Example: Finding the Range</h3>
+        <div class="example-box">
+            <p><strong>Example 1:</strong> Find the range of the numbers 4, 8, 3, 12, 7, 10.</p>
+            <pre>Step 1: The highest value is 12 and the lowest value is 3.
+Step 2: Subtract 3 from 12: 12 - 3 = 9.
+Range = 9</pre>
+        </div>
+
+        <h3>Example with Different Set:</h3>
+        <div class="example-box">
+            <p><strong>Example 2:</strong> Find the range of the numbers 15, 22, 30, 10, 18.</p>
+            <pre>Step 1: The highest value is 30 and the lowest value is 10.
+Step 2: Subtract 10 from 30: 30 - 10 = 20.
+Range = 20</pre>
+        </div>
+
+        <h3>Try It Yourself:</h3>
+        <p>Find the range of the following numbers:</p>
+        <pre>5, 12, 9, 16, 3, 7</pre>
+        <p>Hint: Subtract the smallest value from the largest value.</p>
+
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

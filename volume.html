@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surface Area and Volume - Geometry Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b;
+        }
+        nav {
+            background: #1e4f5b;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b;
+            animation: fadeIn 1s ease-in-out;
+        }
+        p, ul, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #E3F2FD;
+            border: 1px solid #1e4f5b;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b;
+            animation: bounce 1.5s infinite;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Surface Area and Volume</h1>
+    </header>
+    <nav>
+        <a href="geometry.html">Back to Geometry</a>
+        <a href="index.html">Back to Study Guide</a>
+    </nav>
+    <div class="container">
+        <h2>Understanding Surface Area and Volume</h2>
+
+        <div class="step">
+            <i class="fas fa-cube"></i>
+            <div>
+                <h4>1. Cube</h4>
+                <p>Surface Area = 6s², Volume = s³</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-box"></i>
+            <div>
+                <h4>2. Rectangular Prism</h4>
+                <p>Surface Area = 2(lw + lh + wh), Volume = lwh</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-circle"></i>
+            <div>
+                <h4>3. Sphere</h4>
+                <p>Surface Area = 4πr², Volume = (4/3)πr³</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-industry"></i>
+            <div>
+                <h4>4. Cylinder</h4>
+                <p>Surface Area = 2πr(h + r), Volume = πr²h</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-cone"></i>
+            <div>
+                <h4>5. Cone</h4>
+                <p>Surface Area = πr(l + r), Volume = (1/3)πr²h</p>
+            </div>
+        </div>
+
+        <h3>Example:</h3>
+        <div class="example-box">
+            <p><strong>Example: Find the volume of a cylinder with radius 4 cm and height 10 cm.</strong></p>
+            <pre>
+            Volume = πr²h
+                   = π(4²)(10)
+                   = π(16)(10)
+                   = 160π cm³ ≈ 502.65 cm³
+            </pre>
+        </div>
+
+        <h3>Try Solving It Yourself:</h3>
+        <p>Calculate the surface area and volume of a sphere with a radius of 5 cm.</p>
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

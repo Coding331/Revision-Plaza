@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mode - Statistics Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b;
+        }
+        nav {
+            background: #1e4f5b;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #f4f4f9;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f;
+            text-align: center;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b;
+        }
+        p, ul, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            background: #E3F2FD;
+            border: 1px solid #1e4f5b;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        pre {
+            white-space: pre-wrap; /* Allow line wrapping */
+            word-wrap: break-word; /* Prevent overflow */
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mode - Statistics Study Guide</h1>
+    </header>
+    <nav>
+        <a href="index.html">Back to Study Guide</a>
+        <a href="statistics.html">Back to Statistics</a>
+    </nav>
+    <div class="container">
+        <h2>Understanding the Mode</h2>
+        
+        <p>The **mode** is the value that appears most frequently in a data set. A set of data may have one mode, more than one mode, or no mode at all if all the values occur with the same frequency.</p>
+
+        <div class="step">
+            <i class="fas fa-calculator"></i>
+            <div>
+                <h4>Steps to Find the Mode</h4>
+                <p>To find the mode, follow these steps:</p>
+                <pre>Step 1: Identify the frequency of each number in the data set.
+Step 2: Find the number that appears the most times.
+Step 3: If two or more numbers appear the most times, the data set is multimodal and each of these values is a mode.
+Step 4: If no number repeats, the data set has no mode.</pre>
+            </div>
+        </div>
+
+        <h3>Example: Finding the Mode</h3>
+        <div class="example-box">
+            <p><strong>Example 1:</strong> Find the mode of the numbers 3, 7, 5, 3, 1, 3, 9, 5.</p>
+            <pre>Step 1: The frequencies are:
+3 appears 3 times,
+5 appears 2 times,
+7, 1, and 9 each appear once.
+Step 2: The number 3 appears the most times (3 times).</pre>
+            <p><strong>Mode = 3</strong></p>
+        </div>
+
+        <h3>Example with Multiple Modes:</h3>
+        <div class="example-box">
+            <p><strong>Example 2:</strong> Find the mode of the numbers 4, 8, 6, 4, 7, 8, 5, 9.</p>
+            <pre>Step 1: The frequencies are:
+4 appears 2 times,
+8 appears 2 times,
+6, 7, 5, and 9 each appear once.
+Step 2: Both 4 and 8 appear the most times (2 times each).</pre>
+            <p><strong>Modes = 4, 8</strong></p>
+        </div>
+
+        <h3>Try It Yourself:</h3>
+        <p>Find the mode of the following numbers:</p>
+        <pre>2, 9, 4, 4, 7, 2, 5, 9, 6, 7</pre>
+        <p>Hint: Find the most frequent numbers in the set.</p>
+
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

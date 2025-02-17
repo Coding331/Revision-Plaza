@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regression - Statistics Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b;
+        }
+        nav {
+            background: #1e4f5b;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #f4f4f9;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f;
+            text-align: center;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b;
+        }
+        p, ul, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            background: #E3F2FD;
+            border: 1px solid #1e4f5b;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        pre {
+            white-space: pre-wrap; /* Allow line wrapping */
+            word-wrap: break-word; /* Prevent overflow */
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Regression - Statistics Study Guide</h1>
+    </header>
+    <nav>
+        <a href="index.html">Back to Study Guide</a>
+        <a href="statistics.html">Back to Statistics</a>
+    </nav>
+    <div class="container">
+        <h2>Understanding Regression</h2>
+
+        <p>**Regression** is a statistical method used for estimating the relationships among variables. In simple linear regression, the goal is to predict the value of a dependent variable based on the value of an independent variable.</p>
+
+        <div class="step">
+            <i class="fas fa-chart-line"></i>
+            <div>
+                <h4>What is Regression?</h4>
+                <p>Regression analysis seeks to model the relationship between two or more variables by fitting a line (or curve) to the data points. This model can then be used for prediction or understanding the relationships.</p>
+            </div>
+        </div>
+
+        <h3>Types of Regression</h3>
+        <div class="example-box">
+            <p><strong>Simple Linear Regression:</strong> Involves one independent variable and one dependent variable, and the relationship between them is modeled as a straight line.</p>
+            <p><strong>Multiple Linear Regression:</strong> Extends simple linear regression by using multiple independent variables to predict the dependent variable.</p>
+        </div>
+
+        <h3>Example: Simple Linear Regression</h3>
+        <div class="example-box">
+            <p><strong>Example 1:</strong> Let's say we are trying to predict a person's weight based on their height. Using simple linear regression, we fit a line to the data points to estimate the weight (dependent variable) for a given height (independent variable).</p>
+            <pre>Weight = m * Height + b</pre>
+        </div>
+
+        <h3>Example: Multiple Linear Regression</h3>
+        <div class="example-box">
+            <p><strong>Example 2:</strong> In multiple linear regression, we may want to predict a person's salary based on their years of experience and education level. The model would look something like this:</p>
+            <pre>Salary = m1 * Experience + m2 * Education + b</pre>
+        </div>
+
+        <h3>Try It Yourself:</h3>
+        <p>Consider the following data of study hours (X) and test scores (Y). Try fitting a line to this data using simple linear regression:</p>
+        <pre>Study Hours: [1, 2, 3, 4, 5]</pre>
+        <pre>Test Scores: [55, 60, 65, 70, 75]</pre>
+        <p>What would be the predicted test score for 6 hours of study? Use the formula for simple linear regression to estimate the slope (m) and intercept (b), and calculate the predicted value.</p>
+
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solving Quadratic Equations - Algebra Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f; /* Dark blue */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b; /* Darker blue */
+        }
+        nav {
+            background: #1e4f5b; /* Even darker blue */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f; /* Dark blue */
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b; /* Darker blue */
+            animation: fadeIn 1s ease-in-out;
+        }
+        p, ol, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b; /* Darker blue */
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #E3F2FD; /* Light blue */
+            border: 1px solid #1e4f5b; /* Darker blue */
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b; /* Darker blue */
+            animation: bounce 1.5s infinite;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b; /* Darker blue */
+        }
+        .button {
+            display: inline-block;
+            background-color: #1e4f5b; /* Dark blue */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            text-align: center;
+            transition: background-color 0.3s;
+            margin: 20px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .button:hover {
+            background-color: #2d6e7f; /* Lighter blue */
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Solving Quadratic Equations</h1>
+    </header>
+    <nav>
+        <a href="algebra.html">Back to Algebra</a>
+        <a href="index.html">Back to Study Guide</a>
+    </nav>
+    <div class="container">
+        <h2>What is a Quadratic Equation?</h2>
+        <p>A <strong>quadratic equation</strong> is an equation of degree 2, which means the highest power of the variable is 2. It has the form:</p>
+        <pre>ax² + bx + c = 0</pre>
+        <p>Where <b>a</b>, <b>b</b>, and <b>c</b> are constants, and <b>x</b> is the variable.</p>
+
+        <h3>Methods to Solve a Quadratic Equation:</h3>
+        <div class="step">
+            <i class="fas fa-plus"></i>
+            <div>
+                <h4>1. Factoring</h4>
+                <p>Factor the quadratic equation into two binomials.</p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-square-root-alt"></i>
+            <div>
+                <h4>2. Using the Quadratic Formula</h4>
+                <p>Use the quadratic formula: <code>x = (-b ± √(b² - 4ac)) / 2a</code></p>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-calculator"></i>
+            <div>
+                <h4>3. Completing the Square</h4>
+                <p>Rearrange the quadratic equation to form a perfect square trinomial.</p>
+            </div>
+        </div>
+
+        <h3>Example:</h3>
+        <div class="example-box">
+            <p><strong>Example 1: Solve <code>x² - 5x + 6 = 0</code></strong></p>
+            <pre>
+            Step 1: Factor the quadratic equation.
+            (x - 2)(x - 3) = 0
+
+            Step 2: Set each factor equal to 0.
+            x - 2 = 0  →  x = 2
+            x - 3 = 0  →  x = 3
+            </pre>
+        </div>
+
+        <h3>Try Solving It Yourself:</h3>
+        <p>Now, try solving this equation on your own:</p>
+        <pre>x² + 7x + 10 = 0</pre>
+        <a href="#" class="button">Click here for the solution</a>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

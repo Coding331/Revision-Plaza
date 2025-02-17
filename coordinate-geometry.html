@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate Geometry - Geometry Study Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        header {
+            background: #2d6e7f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #1e4f5b;
+        }
+        nav {
+            background: #1e4f5b;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            color: #2d6e7f;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 1.6em;
+            color: #1e4f5b;
+            animation: fadeIn 1s ease-in-out;
+        }
+        p, ol, pre {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .example-box {
+            background: #fff;
+            border-left: 5px solid #1e4f5b;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #E3F2FD;
+            border: 1px solid #1e4f5b;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+        .step i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #1e4f5b;
+            animation: bounce 1.5s infinite;
+        }
+        .step h4 {
+            font-size: 1.4em;
+            color: #1e4f5b;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1e4f5b;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            text-align: center;
+            transition: background-color 0.3s;
+            margin: 20px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .button:hover {
+            background-color: #2d6e7f;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Coordinate Geometry</h1>
+    </header>
+    <nav>
+        <a href="geometry.html">Back to Geometry</a>
+        <a href="index.html">Back to Study Guide</a>
+    </nav>
+    <div class="container">
+        <h2>What is Coordinate Geometry?</h2>
+        <p><strong>Coordinate Geometry</strong> is the study of geometric figures using a coordinate plane. It connects algebra and geometry by using equations to represent shapes.</p>
+        
+        <h3>Key Concepts:</h3>
+        <div class="step">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+                <h4>1. Distance Formula</h4>
+                <p>The distance between two points <code>(x₁, y₁)</code> and <code>(x₂, y₂)</code> is given by:</p>
+                <pre>d = √[(x₂ - x₁)² + (y₂ - y₁)²]</pre>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-ruler"></i>
+            <div>
+                <h4>2. Midpoint Formula</h4>
+                <p>The midpoint of a line segment with endpoints <code>(x₁, y₁)</code> and <code>(x₂, y₂)</code> is:</p>
+                <pre>M = ((x₁ + x₂)/2, (y₁ + y₂)/2)</pre>
+            </div>
+        </div>
+        <div class="step">
+            <i class="fas fa-chart-line"></i>
+            <div>
+                <h4>3. Slope Formula</h4>
+                <p>The slope of a line through two points <code>(x₁, y₁)</code> and <code>(x₂, y₂)</code> is:</p>
+                <pre>m = (y₂ - y₁) / (x₂ - x₁)</pre>
+            </div>
+        </div>
+        
+        <h3>Example:</h3>
+        <div class="example-box">
+            <p><strong>Find the distance between (3, 4) and (7, 1)</strong></p>
+            <pre>
+            d = √[(7 - 3)² + (1 - 4)²]
+              = √[16 + 9]
+              = √25
+              = 5
+            </pre>
+        </div>
+        <a href="#" class="button">Try More Problems</a>
+    </div>
+    <footer>
+        <p>&copy; 2025 Study Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
