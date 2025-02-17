@@ -6,6 +6,7 @@
     <title>Notes - Study Hub</title>
     <!-- Add jsPDF library for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -72,7 +73,7 @@
         textarea,
         #canvas {
             width: 100%;
-            height: 300px;
+            height: 600px;
             padding: 10px;
             font-size: 1.1em;
             border: 1px solid #ccc;
@@ -234,6 +235,19 @@
             display: none;
             z-index: 1001;
         }
+
+        .material-icons {
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
+        .format-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 30px;
+            height: 30px;
+        }
     </style>
 </head>
 
@@ -274,10 +288,19 @@
             <button class="format-button" onclick="formatText('bold')" title="Bold">B</button>
             <button class="format-button" onclick="formatText('italic')">I</button>
             <button class="format-button" onclick="formatText('bullet')">• List</button>
+            <button class="format-button" onclick="formatText('left')" title="Align Left">
+                <span class="material-icons">format_align_left</span>
+            </button>
+            <button class="format-button" onclick="formatText('center')" title="Center">
+                <span class="material-icons">format_align_center</span>
+            </button>
+            <button class="format-button" onclick="formatText('right')" title="Align Right">
+                <span class="material-icons">format_align_right</span>
+            </button>
         </div>
 
         <textarea id="notes" placeholder="Write your notes here..."></textarea>
-        <canvas id="canvas" width="800" height="300"></canvas>
+        <canvas id="canvas" width="800" height="600"></canvas>
 
         <div class="button-container">
             <button class="button" onclick="saveNotes()">Save Notes</button>
@@ -501,6 +524,15 @@
                     const lines = text.slice(start, end).split('\n');
                     const bulletedLines = lines.map(line => '• ' + line).join('\n');
                     textarea.value = text.slice(0, start) + bulletedLines + text.slice(end);
+                    break;
+                case 'left':
+                    textarea.style.textAlign = 'left';
+                    break;
+                case 'center':
+                    textarea.style.textAlign = 'center';
+                    break;
+                case 'right':
+                    textarea.style.textAlign = 'right';
                     break;
             }
             saveToUndoStack();
