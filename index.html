@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Hub</title>
     <style>
-        * {
+        * { 
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,22 +16,19 @@
             flex-direction: column;
             min-height: 100vh;
             background-color: #f4f4f4;
+            transition: background 0.3s, color 0.3s;
         }
         header {
-            background: #2d6e7f; /* Dark blue */
+            background: #2d6e7f;
             color: white;
             padding: 30px 20px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        header h1 {
-            font-size: 2.5em;
-        }
         nav {
-            background: #1e4f5b; /* Darker blue */
+            background: #1e4f5b;
             padding: 15px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         nav a {
             color: white;
@@ -41,23 +38,21 @@
             transition: color 0.3s ease;
         }
         nav a:hover {
-            color: #4CAF50; /* Greenish hover effect */
+            color: #4CAF50;
         }
         .container {
             display: flex;
+            flex-wrap: wrap;
             flex: 1;
             padding: 20px;
+            gap: 20px;
         }
-        .sidebar {
+        .sidebar, .announcements {
             width: 25%;
-            background: #ffffff;
+            background: white;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border-radius: 8px;
-        }
-        .sidebar h2 {
-            color: #2d6e7f;
-            margin-bottom: 15px;
         }
         .content {
             flex: 1;
@@ -66,9 +61,21 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .content h2 {
-            color: #2d6e7f;
+        .search-bar {
             margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .study-tips {
+            margin-top: 20px;
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
         }
         footer {
             background: #333;
@@ -76,13 +83,31 @@
             text-align: center;
             padding: 20px;
             margin-top: auto;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .dark-mode {
+            background: #333;
+            color: white;
+        }
+        .dark-mode .sidebar, .dark-mode .announcements, .dark-mode .content {
+            background: #444;
+            color: white;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: white;
+            color: #2d6e7f;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Study Hub</h1>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
     </header>
     <nav>
         <a href="#">Home</a>
@@ -90,6 +115,9 @@
         <a href="#">Notes</a>
         <a href="#">Feedback</a>
     </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Search study materials...">
+    </div>
     <div class="container">
         <aside class="sidebar">
             <h2>Resources</h2>
@@ -98,10 +126,28 @@
         <main class="content">
             <h2>Welcome to Study Hub</h2>
             <p>Read textbooks, take notes, and enhance your learning experience with our interactive tools.</p>
+            <div class="study-tips">
+                <h3>Study Tips</h3>
+                <ul>
+                    <li>Take regular breaks to improve focus.</li>
+                    <li>Use the Pomodoro technique for efficiency.</li>
+                    <li>Summarize key points in your own words.</li>
+                </ul>
+            </div>
         </main>
+        <aside class="announcements">
+            <h2>Announcements</h2>
+            <p>📢 New revision guides added for Mathematics!</p>
+            <p>📢 Join our live study sessions every Friday.</p>
+        </aside>
     </div>
     <footer>
         <p>&copy; 2025 Study Hub. All rights reserved.</p>
     </footer>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
