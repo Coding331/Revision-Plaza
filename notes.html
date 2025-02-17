@@ -9,28 +9,39 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background-color: #f4f4f4;
         }
         header {
-            background: #333;
+            background: #2d6e7f;
             color: white;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 2.5em;
         }
         nav {
-            background: #444;
-            padding: 10px;
+            background: #1e4f5b;
+            padding: 15px;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         nav a {
             color: white;
             margin: 0 15px;
             text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #4CAF50;
         }
         .container {
             flex: 1;
@@ -38,47 +49,89 @@
             max-width: 800px;
             margin: auto;
         }
-        .note-list {
-            list-style: none;
-            padding: 0;
+        h2 {
+            margin-bottom: 20px;
+            color: #2d6e7f;
         }
-        .note-list li {
-            background: #f4f4f4;
-            margin: 10px 0;
+        textarea {
+            width: 100%;
+            height: 300px;
             padding: 10px;
-            border-left: 5px solid #333;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #2d6e7f;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: none;
+        }
+        .button:hover {
+            background-color: #1e4f5b;
         }
         footer {
             background: #333;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 20px;
             margin-top: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Notes</h1>
+        <h1>Study Notes</h1>
     </header>
     <nav>
         <a href="index.html">Home</a>
-        <a href="library.html">Library</a>
-        <a href="notes.html">Notes</a>
-        <a href="feedback.html">Feedback</a>
+        <a href="library.html">Study Guides</a>
+        <a href="physics.html">Physics</a>
+        <a href="math.html">Mathematics</a>
     </nav>
     <div class="container">
         <h2>Your Notes</h2>
-        <ul class="note-list">
-            <li>Chapter 1 - Algebra Basics</li>
-            <li>Chapter 5 - Newton's Laws</li>
-            <li>WWII Summary Notes</li>
-            <li>Microeconomics Key Concepts</li>
-            <li>Shakespeare's Themes</li>
-        </ul>
+        <textarea id="notes" placeholder="Write your notes here..."></textarea>
+        <div class="button-container">
+            <button class="button" onclick="saveNotes()">Save Notes</button>
+            <button class="button" onclick="clearNotes()">Clear Notes</button>
+        </div>
     </div>
     <footer>
         <p>&copy; 2025 Study Hub. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Load saved notes from local storage
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("notes").value = localStorage.getItem("userNotes") || "";
+        });
+
+        function saveNotes() {
+            localStorage.setItem("userNotes", document.getElementById("notes").value);
+            alert("Notes saved!");
+        }
+
+        function clearNotes() {
+            if (confirm("Are you sure you want to clear your notes?")) {
+                document.getElementById("notes").value = "";
+                localStorage.removeItem("userNotes");
+            }
+        }
+    </script>
 </body>
 </html>
